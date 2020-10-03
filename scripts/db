@@ -1,0 +1,10 @@
+To create Disease table:
+
+CREATE TABLE `HMA`.`Disease` ( `id` INT(100) NOT NULL AUTO_INCREMENT , `orpha_code` VARCHAR(100) NOT NULL, `name` VARCHAR(300) NOT NULL , `abbreviation` VARCHAR(100) NULL , `sub_category` VARCHAR(100) NULL , `gene_name` VARCHAR(200) NULL , `gene_reference` VARCHAR(300) NULL , PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+
+To create Disease_photo table:
+
+CREATE TABLE Disease_image ( id INT UNSIGNED NOT NULL AUTO_INCREMENT , disease_id INT(100) NOT NULL , image_url TEXT NOT NULL, image_ref TEXT NOT NULL, PRIMARY KEY (id) , INDEX(id) , CONSTRAINT FK_Disease FOREIGN KEY (disease_id) REFERENCES Disease(id) ON delete cascade) ENGINE=InnoDB;
+
+

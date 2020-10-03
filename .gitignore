@@ -1,0 +1,8 @@
+.idea
+venv/
+__pycache__
+service/__pycache__
+resources/__pycache__
+static
+static/
+/static
