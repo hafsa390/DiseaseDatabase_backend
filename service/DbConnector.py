@@ -21,7 +21,7 @@ try:
     connection_pool = mysql.connector.pooling.MySQLConnectionPool(
         pool_name="hma_pool",
         pool_size=3,
-        pool_reset_session=True,
+        pool_reset_session=False,
         host="us-cdbr-east-06.cleardb.net",
         port=3306,
         user="b4f104fae29631",
