@@ -22,11 +22,11 @@ try:
         pool_name="hma_pool",
         pool_size=20,
         pool_reset_session=True,
-        host="mysql://b4f104fae29631:3719ff63@us-cdbr-east-06.cleardb.net/heroku_5a380db5178d389?reconnect=true",
+        host="us-cdbr-east-06.cleardb.net",
         port=3306,
-        # user="b4f104fae29631",
-        # password="3719ff63",
-        # database="heroku_5a380db5178d389",
+        user="b4f104fae29631",
+        password="3719ff63",
+        database="heroku_5a380db5178d389",
     )
 except Error as e:
     print(e)
