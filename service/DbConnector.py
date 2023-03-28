@@ -24,9 +24,9 @@ try:
         pool_reset_session=True,
         host="127.0.0.1",
         port=3306,
-        user="root",
-        password="Avengers1234567890!!!",
-        database="HMA",
+        user="b4f104fae29631",
+        password="3719ff63",
+        database="heroku_5a380db5178d389",
     )
 except Error as e:
     print(e)
