@@ -6,7 +6,7 @@ import logging as logger
 class ImageDb:
     def get_images(self, diseaseId):
 
-        query = "SELECT * FROM Disease_image WHERE disease_id='" + diseaseId + "'"
+        query = "SELECT * FROM disease_image WHERE disease_id='" + diseaseId + "'"
         db, cursor = get_db_cursor()
         image_array = []
         try:

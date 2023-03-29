@@ -7,7 +7,7 @@ import json
 
 class DiseaseDb:
     def get_diseases(self):
-        query = "SELECT * FROM Disease"
+        query = "SELECT * FROM disease"
         connection, cursor = get_db_cursor()
         disease_array = []
         try:
@@ -38,7 +38,7 @@ class DiseaseDb:
         return disease_array
 
     def get_diseases_by_orpha_code(self, orpha_code):
-        query = "SELECT * FROM Disease WHERE orpha_code='" + orpha_code + "'"
+        query = "SELECT * FROM disease WHERE orpha_code='" + orpha_code + "'"
         connection, cursor = get_db_cursor()
         count = 0
         try:
@@ -67,7 +67,7 @@ class DiseaseDb:
         elif searchBy == "category":
             column_name = "sub_category"
 
-        query = "SELECT * FROM Disease WHERE " + column_name + " LIKE '%" + searchStr + "%'"
+        query = "SELECT * FROM disease WHERE " + column_name + " LIKE '%" + searchStr + "%'"
         connection, cursor = get_db_cursor()
         disease_array = []
         try:
@@ -102,7 +102,7 @@ class DiseaseDb:
         if count > 0:
             return 0
 
-        query = "INSERT INTO Disease " \
+        query = "INSERT INTO disease " \
                 "(orpha_code, name, abbreviation, sub_category, gene_name, gene_reference) " \
                 "VALUES (%s,%s,%s,%s,%s,%s)"
         val = (
@@ -118,7 +118,7 @@ class DiseaseDb:
             disease_id = cursor.lastrowid
             i = 0
             for fileName in files:
-                query = "INSERT INTO Disease_image " \
+                query = "INSERT INTO disease_image " \
                         "(disease_id, image_url, image_ref) " \
                         "VALUES (%s,%s,%s)"
                 val = (disease_id, fileName, refs[i])
@@ -140,7 +140,7 @@ class DiseaseDb:
 
     def update_disease(self, disease, filesToDeleteArr):
 
-        query = "UPDATE Disease " \
+        query = "UPDATE disease " \
                 "SET orpha_code=%s, name=%s, abbreviation=%s, sub_category=%s, gene_name=%s, gene_reference=%s" \
                 "WHERE id=%s"
         val = (
@@ -158,7 +158,7 @@ class DiseaseDb:
             cursor.execute(query, val)
             i = 0
             for fileName in files:
-                query = "INSERT INTO Disease_image " \
+                query = "INSERT INTO disease_image " \
                         "(disease_id, image_url, image_ref) " \
                         "VALUES (%s,%s,%s)"
                 val = (disease['id'], fileName, refs[i])
@@ -168,14 +168,14 @@ class DiseaseDb:
             # Keep image file names in an array
             image_urls = []
             for fileId in filesToDelete:
-                query = "SELECT image_url FROM Disease_image WHERE id=" + str(fileId)
+                query = "SELECT image_url FROM disease_image WHERE id=" + str(fileId)
                 cursor.execute(query)
                 result = cursor.fetchall()
                 for row in result:
                     image_urls.append(row[0])
 
             for fileId in filesToDelete:
-                query = "DELETE FROM Disease_image WHERE id=" + str(fileId)
+                query = "DELETE FROM disease_image WHERE id=" + str(fileId)
                 cursor.execute(query)
 
             connection.commit()
@@ -202,13 +202,13 @@ class DiseaseDb:
         try:
             # Keep image file names in an array
             image_urls = []
-            query = "SELECT image_url FROM Disease_image WHERE disease_id='" + disease_id + "'"
+            query = "SELECT image_url FROM disease_image WHERE disease_id='" + disease_id + "'"
             cursor.execute(query)
             result = cursor.fetchall()
             for row in result:
                 image_urls.append(row[0])
 
-            query = "DELETE FROM Disease WHERE id='" + disease_id + "'"
+            query = "DELETE FROM disease WHERE id='" + disease_id + "'"
             cursor.execute(query)
             connection.commit()
 
@@ -229,7 +229,7 @@ class DiseaseDb:
         return result
 
     def get_all_diseases_category(self):
-        query = "SELECT sub_category FROM Disease"
+        query = "SELECT sub_category FROM disease"
         connection, cursor = get_db_cursor()
 
         disease_categories = []
@@ -255,7 +255,7 @@ class DiseaseDb:
         return disease_categories
 
     def get_dieases_by_category(self, category):
-        query = "SELECT * FROM Disease WHERE sub_category='" + category + "'"
+        query = "SELECT * FROM disease WHERE sub_category='" + category + "'"
         connection, cursor = get_db_cursor()
         disease_array = []
         try:
