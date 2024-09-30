@@ -6,10 +6,11 @@ import logging as logger
 class ImageDb:
     def get_images(self, diseaseId):
 
-        query = "SELECT * FROM disease_image WHERE disease_id='" + diseaseId + "'"
-        db, cursor = get_db_cursor()
+        query = "SELECT * FROM Disease_image WHERE disease_id='" + diseaseId + "'"
         image_array = []
         try:
+            db = get_db_cursor()
+            cursor = db.cursor()
             cursor.execute(query)
             result = cursor.fetchall()
             for row in result:
@@ -26,7 +27,8 @@ class ImageDb:
             logger.error(e)
             db.rollback()
         finally:
-            cursor.close()
-            db.close()
-
+            if db.is_connected():
+                cursor.close()
+                db.close() 
+            
         return image_array

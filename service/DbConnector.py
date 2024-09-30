@@ -21,26 +21,38 @@ try:
     connection_pool = mysql.connector.pooling.MySQLConnectionPool(
         pool_name="hma_pool",
         pool_size=3,
-        pool_reset_session=False,
-        host="us-cdbr-east-06.cleardb.net",
+        pool_reset_session=True,
+        host="us-cluster-east-01.k8s.cleardb.net",
         port=3306,
-        user="b4f104fae29631",
-        password="3719ff63",
-        database="heroku_5a380db5178d389",
+        user="b21a0d6691d78d",
+        password="c769f560",
+        database="heroku_cfdf27f94532903",
     )
 except Error as e:
     print(e)
     logger.error(e)
-
+    
 
 def get_db_cursor():
-    connection = None
+    try:
+        connection = connection_pool.get_connection()
+        if connection.is_connected():
+            return connection
+    except Error as err:
+        logger.error(err)
+        raise
 
-    while connection is None:
-        try:
-            connection = connection_pool.get_connection()
-        except Error as err:
-            print(err)
-            logger.error(err)
 
-    return connection, connection.cursor()
+
+
+# def get_db_cursor():
+#     connection = None
+
+#     while connection is None:
+#         try:
+#             connection = connection_pool.get_connection()
+#         except Error as err:
+#             print(err)
+#             logger.error(err)
+
+#     return connection, connection.cursor()
